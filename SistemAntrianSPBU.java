@@ -115,20 +115,20 @@ public class SistemAntrianSPBU {
     }
 
     public void urutkanTransaksiBerdasarkanPlat() {
-    if (headTransaksi == null || headTransaksi.next == null) return;
+        if (headTransaksi == null || headTransaksi.next == null) return;
 
-    TransaksiPengisian sorted = null;
+        TransaksiPengisian sorted = null;
 
-    TransaksiPengisian current = headTransaksi;
-    while (current != null) {
-        TransaksiPengisian next = current.next;
-        current.next = null;
+        TransaksiPengisian current = headTransaksi;
+        while (current != null) {
+            TransaksiPengisian next = current.next;
+            current.next = null;
 
-        if (sorted == null || current.kendaraan.platNomor.compareToIgnoreCase(sorted.kendaraan.platNomor) < 0) {
-            current.next = sorted;
-            sorted = current;
-        } else {
-            TransaksiPengisian temp = sorted;
+            if (sorted == null || current.kendaraan.platNomor.compareToIgnoreCase(sorted.kendaraan.platNomor) < 0) {
+                current.next = sorted;
+                sorted = current;
+            } else {
+                TransaksiPengisian temp = sorted;
             while (temp.next != null && current.kendaraan.platNomor.compareToIgnoreCase(temp.next.kendaraan.platNomor) > 0) {
                 temp = temp.next;
             }
@@ -137,14 +137,14 @@ public class SistemAntrianSPBU {
         }
 
         current = next;
-    }
+        }
 
-    headTransaksi = sorted;
-    tailTransaksi = sorted;
-    while (tailTransaksi.next != null) {
-        tailTransaksi = tailTransaksi.next;
-    }
+        headTransaksi = sorted;
+        tailTransaksi = sorted;
+        while (tailTransaksi.next != null) {
+            tailTransaksi = tailTransaksi.next;
+        }
 
-    System.out.println(">> Riwayat transaksi berhasil diurutkan berdasarkan plat nomor.");
-}
+        System.out.println(">> Riwayat transaksi berhasil diurutkan berdasarkan plat nomor.");
+    }
 }
