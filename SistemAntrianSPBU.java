@@ -43,4 +43,53 @@ public class SistemAntrianSPBU {
         }
         return null;
     }
+
+    public void tambahAntrian(Kendaraan kendaraan) {
+        Node baru = new Node(kendaraan);
+        if (head == null) {
+            head = tail = baru;
+        } else {
+            tail.next = baru;
+            tail = baru;
+        }
+        size++;
+    }
+
+    public void lihatAntrian() {
+        Node temp = head;
+        while (temp != null) {
+            temp.kendaraan.tampilkanInformasi();
+            temp = temp.next;
+        }
+    }
+
+    public void layaniKendaraan(java.util.Scanner sc) {
+        if (head == null) {
+            System.out.println("Tidak ada kendaraan dalam antrian.");
+            return;
+        }
+
+        Kendaraan kendaraan = head.kendaraan;
+        System.out.println("Kendaraan " + kendaraan.platNomor);
+        System.out.println("Daftar Jenis BBM:");
+        tampilkanDaftarBBM();
+
+        System.out.print("Input jenis BBM: ");
+        String jenis = sc.next();
+        System.out.print("Input jumlah (liter): ");
+        double liter = sc.nextDouble();
+
+        BBM bbmDipilih = cariBBM(jenis);
+
+        if (bbmDipilih != null) {
+            TransaksiPengisian transaksi = new TransaksiPengisian(kendaraan, bbmDipilih, liter);
+            tambahRiwayatTransaksi(transaksi);
+            System.out.println(">> Transaksi berhasil dicatat");
+        } else {
+            System.out.println("Jenis BBM tidak ditemukan!");
+        }
+
+        head = head.next;
+        if (head == null) tail = null;
+    }
 }
